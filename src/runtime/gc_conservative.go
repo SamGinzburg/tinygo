@@ -288,8 +288,8 @@ func alloc(size uintptr, layout unsafe.Pointer) unsafe.Pointer {
 				heapScanCount = 2
 				freeBytes := runGC()
 				heapSize := uintptr(metadataStart) - heapStart
-				if freeBytes < heapSize/3 {
-					// Ensure there is at least 33% headroom.
+				if freeBytes < heapSize/16 {
+					// Ensure there is at least 6.25% headroom. (changed from default of 33%)
 					// This percentage was arbitrarily chosen, and may need to
 					// be tuned in the future.
 					growHeap()
